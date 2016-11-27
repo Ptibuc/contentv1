@@ -22,7 +22,9 @@
 <% if session[:site] %>
 
   <p>Site sélectionné : <%= Site.find(session[:site]).url %></p>
-  <p><%= link_to "Changer de site", "/change_site" %></p>
+  <% if current_user.sites.count > 1 %>
+    <p><%= link_to "Changer de site", "/change_site" %></p>
+  <% end %>
 
 <% else %>
 
@@ -31,7 +33,7 @@
       <tr>
         <th>Url</th>
         <th>Système</th>
-        <th>Sélectionner</th>
+        <th>Actions</th>
       </tr>
     </thead>
     <tbody>
@@ -40,13 +42,16 @@
           <td><%= site.url %></td>
           <td><%= site.system %></td>
           <td>
-            <%= link_to "Sélectionner", "/select_site/#{site.id}" %>
+            <%= link_to "Sélectionner", "/select_site/#{site.id}" %> |
+            <%= link_to "Modifier", edit_site_path(site.id) %>
           </td>
         </tr>
       <% end %>
     </tbody>
   </table>
 
-  <p>Ajouter un site : <%= link_to "Ajouter un site", new_site_path %></p>
+<% end %>
 
+<% if current_user.is_admin? || current_user.sites.count==0 %>
+  <p>Ajouter un site : <%= link_to "Ajouter un site", new_site_path %></p>
 <% end %>
