@@ -50,3 +50,4 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'devise'
 gem 'rails_admin', '~> 1.0'
 gem 'cancancan'
+gem 'bootstrap-sass', '~> 3.3.6'

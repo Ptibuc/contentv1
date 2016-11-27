@@ -1,21 +1,4 @@
 <h1>Dashboard</h1>
-<p>On est sur le tableau de bord.</p>
-
-<h2>Informations User</h2>
-
-<ul>
-  <li>ID : <%= current_user.id %></li>
-  <li>Email : <%= current_user.email %></li>
-  <li>Photo : <%= current_user.photo %></li>
-  <li>Langue : <%= current_user.langage %></li>
-  <li>Compte créé le : <%= current_user.created_at %></li>
-  <li>Admin : <%= current_user.is_admin? %></li>
-  <li>Nombre de logs : <%= current_user.sign_in_count %></li>
-  <li>Session créé depuis : <%= current_user.current_sign_in_at %></li>
-  <li>Dernière connexion : <%= current_user.last_sign_in_at %></li>
-  <li>IP de connexion actuelle : <%= current_user.current_sign_in_ip %></li>
-  <li>IP utilisée la dernière fois : <%= current_user.last_sign_in_ip %></li>
-</ul>
 
 <h2>Sites</h2>
 
@@ -53,5 +36,23 @@
 <% end %>
 
 <% if current_user.is_admin? || current_user.sites.count==0 %>
-  <p>Ajouter un site : <%= link_to "Ajouter un site", new_site_path %></p>
+  <p>Ajouter un site : <%= link_to "Ajouter un site", new_site_path, class: "btn btn-primary" %></p>
+<% end %>
+
+<% if Rails.env.development? %>
+  <h2>Informations User</h2>
+
+  <ul>
+    <li>ID : <%= current_user.id %></li>
+    <li>Email : <%= current_user.email %></li>
+    <li>Photo : <%= current_user.photo %></li>
+    <li>Langue : <%= current_user.langage %></li>
+    <li>Compte créé le : <%= current_user.created_at %></li>
+    <li>Admin : <%= current_user.is_admin? %></li>
+    <li>Nombre de logs : <%= current_user.sign_in_count %></li>
+    <li>Session créé depuis : <%= current_user.current_sign_in_at %></li>
+    <li>Dernière connexion : <%= current_user.last_sign_in_at %></li>
+    <li>IP de connexion actuelle : <%= current_user.current_sign_in_ip %></li>
+    <li>IP utilisée la dernière fois : <%= current_user.last_sign_in_ip %></li>
+  </ul>
 <% end %>
