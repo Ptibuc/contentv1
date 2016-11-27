@@ -9,4 +9,9 @@
   </head>
 
   <body>
-    <p><%= link_to "Accueil", root_path %></p>
+    <p>
+      <%= link_to "Accueil", root_path %>
+      <% if can? :manage, User %>
+        | <%= link_to "Boss admin", '/boss' %>
+      <% end %>
+    </p>
