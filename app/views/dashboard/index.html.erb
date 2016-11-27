@@ -19,8 +19,34 @@
 
 <h2>Sites</h2>
 
-<% current_user.sites.each do |site| %>
-  <p><%= site.url %></p>
-<% end %>
+<% if session[:site] %>
 
-<p>Ajouter un site : <%= link_to "Ajouter un site", new_site_path %></p>
+  <p>Site sélectionné : <%= Site.find(session[:site]).url %></p>
+  <p><%= link_to "Changer de site", "/change_site" %></p>
+
+<% else %>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Url</th>
+        <th>Système</th>
+        <th>Sélectionner</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% current_user.sites.each do |site| %>
+        <tr>
+          <td><%= site.url %></td>
+          <td><%= site.system %></td>
+          <td>
+            <%= link_to "Sélectionner", "/select_site/#{site.id}" %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <p>Ajouter un site : <%= link_to "Ajouter un site", new_site_path %></p>
+
+<% end %>

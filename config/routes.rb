@@ -15,7 +15,9 @@ Rails.application.routes.draw do
   resources :sites
   resources :users
 
-  get 'dashboard' => 'dashboard#index'
+  get '/dashboard' => 'dashboard#index'
+  get '/select_site/:site' => 'dashboard#select_site'
+  get '/change_site' => 'dashboard#change_site'
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
