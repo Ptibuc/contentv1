@@ -33,8 +33,8 @@ class Ability
     if user.is_admin?
       can :manage, :all
       can :access, :rails_admin
-    else
-      can :read, :all
+      can :dashboard
+
     end
 
   end
