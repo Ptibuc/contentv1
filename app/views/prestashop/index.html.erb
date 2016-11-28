@@ -1,0 +1,18 @@
+<h1>Test Presta</h1>
+
+<p>Produit</p>
+<ul>
+<% @produit.each do |info| %>
+  <li><%= info %></li>
+<% end %>
+</ul>
+
+<p>Nombre de produits trouvés : <%= @products['product'].count %></p>
+
+<ul>
+<% @products['product'].each do |product| %>
+  <li>
+    ID : <%= product['id'] %> | url_api : <%= product['href'] %>
+  </li>
+<% end %>
+</ul>

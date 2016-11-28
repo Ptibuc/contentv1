@@ -1,0 +1,2 @@
+module PrestashopHelper
+end
