@@ -9,6 +9,12 @@
     <p><%= link_to "Changer de site", "/change_site" %></p>
   <% end %>
 
+  <h3>Stats</h3>
+  <p>
+    Nombre de produits : <%= Site.find(session[:site]).products.count %> -
+    <%= link_to "Liste des produits", products_path %>
+  </p>
+
 <% else %>
 
   <table>

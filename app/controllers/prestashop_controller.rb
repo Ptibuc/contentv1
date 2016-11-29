@@ -16,7 +16,6 @@ class PrestashopController < ApplicationController
 
     # pour chaque produit récupéré
     @products['product'].each do |product|
-
       #on regarde si le produit existe
       if !exist_product(product['id'])
 
@@ -27,11 +26,12 @@ class PrestashopController < ApplicationController
         # on l'ajoute à la BDD
         p = Product.new
         p.title = product_infos['name']['language']['__content__']
-        p.photo = product_infos['id']
+        p.photo = product_infos['id_default_image']['__content__']
         p.client_id = product_infos['id']
         p.ean = product_infos['ean13']
         p.short_description = product_infos['description_short']['language']['__content__']
         p.long_description = product_infos['description']['language']['__content__']
+        p.site_id = session[:site]
         p.save
 
       end
@@ -39,6 +39,8 @@ class PrestashopController < ApplicationController
 
     response = get_product(127)
     @produit = response['prestashop']['product']
+    url_photo = response['prestashop']['product']['id_default_image']['__content__']
+
 
 #
 #    @affich = "<ul>";
@@ -57,11 +59,16 @@ private
   end
 
   def get_products
-    HTTParty.get "#{SITE_URL}/api/products", basic_auth: {username: WEB_SERVICE_KEY }
+    HTTParty.get "#{SITE_URL}/api/products?limit=20", basic_auth: {username: WEB_SERVICE_KEY }
   end
 
   def get_product(product)
     HTTParty.get "#{SITE_URL}/api/products/#{product}", basic_auth: {username: WEB_SERVICE_KEY }
   end
+
+  def get_product_photo(product_image_path)
+    HTTParty.get "#{product_image_path}", basic_auth: {username: WEB_SERVICE_KEY }
+  end
+
 
 end

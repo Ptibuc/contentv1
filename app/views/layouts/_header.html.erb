@@ -35,7 +35,7 @@
               <li class="dropdown">
                 <a href="<%= site_path(session[:site]) %>" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= Site.find(session[:site]).url %> <span class="caret"></span></a>
                 <ul class="dropdown-menu">
-                  <li><a href="#">Liste des produits</a></li>
+                  <li><%= link_to "Liste des produits", products_path %></li>
                   <li><a href="#">Liste des caractéristiques</a></li>
                   <li><a href="#">Liste des phrases existantes</a></li>
                   <li><a href="#">Liste des masques existants</a></li>
@@ -47,6 +47,9 @@
                   <li><a href="#">Mettre à jour toutes les descriptions</a></li>
                 </ul>
               </li>
+            <% end %>
+            <% if Rails.env.development? %>
+            <li><%= link_to "Test presta", '/test_presta' %></li>
             <% end %>
           </ul>
           <ul class="nav navbar-nav navbar-right">
