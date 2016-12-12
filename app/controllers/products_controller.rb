@@ -5,7 +5,7 @@ class ProductsController < ApplicationController
   # GET /products.json
   def index
     #@products = Product.all
-    @products = Product.page(params[:page]).per(50)
+    @products = Product.where(site_id: session[:site]).page(params[:page]).per(50)
   end
 
   # GET /products/1

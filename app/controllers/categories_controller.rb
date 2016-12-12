@@ -4,7 +4,7 @@ class CategoriesController < ApplicationController
   # GET /categories
   # GET /categories.json
   def index
-    @categories = Categorie.all
+    @categories = Categorie.where(site_id: session[:site]).page(params[:page]).per(50)
   end
 
   # GET /categories/1

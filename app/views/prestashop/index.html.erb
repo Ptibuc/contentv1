@@ -1,6 +1,13 @@
 <h1>Test Presta</h1>
 
-<p>Photo : <%= @response_photo %></p>
+<p>Catégories</p>
+<ul>
+<% @categories.each do |categorie| %>
+  <li><%= categorie %></li>
+<% end %>
+</ul>
+
+
 
 <p>Produit</p>
 <ul>

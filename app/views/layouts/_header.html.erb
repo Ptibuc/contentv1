@@ -36,6 +36,7 @@
                 <a href="<%= site_path(session[:site]) %>" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= Site.find(session[:site]).url %> <span class="caret"></span></a>
                 <ul class="dropdown-menu">
                   <li><%= link_to "Liste des produits", products_path %></li>
+                  <li><%= link_to "Liste des catégories", categories_path %></li>
                   <li><a href="#">Liste des caractéristiques</a></li>
                   <li><a href="#">Liste des phrases existantes</a></li>
                   <li><a href="#">Liste des masques existants</a></li>
