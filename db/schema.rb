@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161212132233) do
+ActiveRecord::Schema.define(version: 20161214133015) do
 
   create_table "caracteristiques", force: :cascade do |t|
     t.string   "name"
@@ -69,8 +69,14 @@ ActiveRecord::Schema.define(version: 20161212132233) do
     t.datetime "date_generation_short_description"
     t.datetime "date_generation_long_description"
     t.integer  "site_id"
-    t.datetime "created_at",                        null: false
-    t.datetime "updated_at",                        null: false
+    t.datetime "created_at",                                       null: false
+    t.datetime "updated_at",                                       null: false
+    t.string   "brand"
+    t.string   "reference"
+    t.string   "supplier_reference"
+    t.boolean  "available",                         default: true, null: false
+    t.string   "defaut_categorie"
+    t.decimal  "price"
     t.index ["site_id"], name: "index_products_on_site_id"
   end
 
