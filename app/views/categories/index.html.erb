@@ -15,7 +15,7 @@
     <% @categories.each do |category| %>
       <tr>
         <td><%= category.private_id %></td>
-        <td><%= category.name %></td>
+        <td><%= link_to category.name, "categories/#{category.id}" %></td>
       </tr>
     <% end %>
   </tbody>

@@ -19,11 +19,10 @@ class PrestashopController < ApplicationController
         # on récupère le nom de la catégorie
         category_name = get_category_name(category['id'])
         # on l'ajoute à la base
-        c = Categorie.new
-        c.name = category_name
-        c.private_id = category['id']
-        c.site_id = session[:site]
-        c.save
+        add_categorie(
+          category_name,
+          category['id'],
+          session[:site])
       end
     end
 
@@ -45,6 +44,9 @@ class PrestashopController < ApplicationController
         response = get_product(product['id'])
         product_infos = response['prestashop']['product']
 
+        # on récupère l'ID de la base de la catégorie par défaut
+        @category_default = get_category_id_by_private_id(product_infos['id_category_default']['__content__'])
+
         # on l'ajoute à la BDD
         add_product_to_bdd(
                 product_infos['name']['language']['__content__'],
@@ -52,7 +54,13 @@ class PrestashopController < ApplicationController
                 product_infos['id'],
                 product_infos['ean13'],
                 product_infos['description_short']['language']['__content__'],
-                product_infos['description']['language']['__content__']
+                product_infos['description']['language']['__content__'],
+                product_infos['manufacturer_name']['__content__'],
+                product_infos['reference'],
+                product_infos['supplier_reference'],
+                product_infos['active'],
+                @category_default,
+                session[:site]
                 )
 
 
@@ -63,46 +71,12 @@ class PrestashopController < ApplicationController
     @produit = response['prestashop']['product']
     url_photo = response['prestashop']['product']['id_default_image']['__content__']
 
-
-#
-#    @affich = "<ul>";
-#    products['product'].each do |product|
-#      response = get_product(product)
-#      @affich &= "<li>#{product}</li>"
-#    end
-#    @affich &= "</ul>"
-
   end
 
 private
 
-  def exist_product(product)
-    Product.exists?(:client_id => product, :site_id => session[:site])
-  end
-
-  def exist_category(private_category)
-    Categorie.exists?(:private_id => private_category, :site_id => session[:site])
-  end
-
-  def add_product_to_bdd(langage,
-                        photo,
-                        client_id,
-                        ean,
-                        short_description,
-                        long_description)
-    p = Product.new
-    p.title = product_infos['name']['language']['__content__']
-    p.photo = product_infos['id_default_image']['__content__']
-    p.client_id = product_infos['id']
-    p.ean = product_infos['ean13']
-    p.short_description = product_infos['description_short']['language']['__content__']
-    p.long_description = product_infos['description']['language']['__content__']
-    p.site_id = session[:site]
-    p.save
-  end
-
   def get_products
-    HTTParty.get "#{SITE_URL}/api/products?limit=120", basic_auth: {username: WEB_SERVICE_KEY }
+    HTTParty.get "#{SITE_URL}/api/products?limit=20", basic_auth: {username: WEB_SERVICE_KEY }
   end
 
   def get_product(product)
